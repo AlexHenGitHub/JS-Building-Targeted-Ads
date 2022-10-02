@@ -1,28 +1,9 @@
-// get user's data
-
-
-
-// Get the user's coordinates:                                                              
-async function getCoords(){
-    pos = await new Promise((resolve, reject) => {
-        navigator.geolocation.getCurrentPosition(resolve, reject)
-    })
-    return [pos.coords.latitude, pos.coords.longitude]
-}
-
-console.log(getCoords());                              
-
-
-
-
-
 // Get the user's time:                                                              
 function userTime(){
     const now = new Date()
     return now.getHours()
 }
 console.log(userTime())                             
-
 
 // Get the user's time:                                                              
 function getMealTime(){
@@ -40,13 +21,6 @@ function getMealTime(){
     
   console.log(getMealTime())                   
 
-
-// helper functions
-// check time of day
-
-
-// build ads
-
 // Build Ad 1:                                                           
 function buildAd1(){
     const mealTime = getMealTime()
@@ -57,12 +31,18 @@ function buildAd1(){
 }
 
 
+// Get the user's coordinates:                                                              
+async function getCoords(){
+    pos = await new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(resolve, reject)
+    })
+    return [pos.coords.latitude, pos.coords.longitude]
+}
 
+console.log(getCoords());                              
 
-
-
-
-// Build Ad 2                                                             
+// Build Ad 2                    
+//Without users allowing location access the page won't display the coffee ad(ad 2)                                 
 function buildAd2(coordinates){
     const coords = coordinates
     const href = `https://www.google.com/maps/search/coffee/@${coords[0]},${coords[1]},15z/`
@@ -71,11 +51,6 @@ function buildAd2(coordinates){
     inner.innerHTML = `It's time to try our coffee! <span><a href="${href}" target="_blank">We're this close!</a></span>`
     content.append(inner)
 }
-
-console.log(buildAd2(getCoords()))
-
-
-// event listeners
 
 // On load, build ads:                                                             
 window.onload = async () => {
